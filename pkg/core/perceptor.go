@@ -35,15 +35,15 @@ import (
 )
 
 const (
-	checkHubForCompletedScansPause = 20 * time.Second
-	checkHubThrottle               = 1 * time.Second
+	checkHubForCompletedScansPause = 2 * time.Second
+	checkHubThrottle               = 1 * time.Millisecond
 
 	checkForStalledScansPause = 1 * time.Minute
 	stalledScanClientTimeout  = 30 * time.Minute
 	stalledHubScanTimeout     = 1 * time.Hour
 
-	recheckHubForUpdatesPause = 1 * time.Hour
-	recheckHubThrottle        = 5 * time.Second
+	recheckHubForUpdatesPause = 1 * time.Second
+	recheckHubThrottle        = 50 * time.Millisecond
 
 	modelMetricsPause = 15 * time.Second
 
