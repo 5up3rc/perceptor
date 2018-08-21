@@ -223,9 +223,17 @@ var _ = Describe("Priority queue", func() {
 		})
 	})
 
-	// remove by key
-	Describe("Remove by key", func() {
-
+	// remove and re-add
+	Describe("Remove and re-add", func() {
+		pq := NewPriorityQueue()
+		It("should add to the end (more or less)", func() {
+			Expect(pq.Add("abc", 1, "abc")).To(BeNil())
+			Expect(pq.Add("def", 1, "def")).To(BeNil())
+			Expect(pq.Values()).To(Equal([]interface{}{"abc", "def"}))
+			Expect(pq.Pop()).To(Equal("abc"))
+			Expect(pq.Add("abc", 1, "abc")).To(BeNil())
+			Expect(pq.Values()).To(Equal([]interface{}{"def", "abc"}))
+		})
 	})
 
 	// change key
