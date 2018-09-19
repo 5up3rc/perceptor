@@ -30,15 +30,28 @@ import (
 
 // TestScanClientFails .....
 func TestScanClientFails(t *testing.T) {
-	model := m.NewModel("test version", &m.Config{ConcurrentScanLimit: 1}, nil)
+	model := m.NewModel("test version", &m.Config{ConcurrentScanLimit: 1}, m.DefaultTimings)
 	image := *m.NewImage("abc", "4.0", m.DockerImageSha("23bcf2dae3"))
 	model.AddImage(image, 0)
 	model.SetImageScanStatus(image.Sha, m.ScanStatusInQueue)
+
+	// gm := NewGetModel()
+	// gm.Apply(model)
+	// apiModel := <-gm.Done
+
+	// bytes, err := json.MarshalIndent(apiModel, "", "  ")
+	// fmt.Printf("api model: %s\n%v\n", string(bytes), err)
+
 	model.SetImageScanStatus(image.Sha, m.ScanStatusRunningScanClient)
 	model.FinishRunningScanClient(&image, fmt.Errorf("oops, unable to run scan client"))
 
 	if model.Images[image.Sha].ScanStatus != m.ScanStatusInQueue {
 		t.Logf("expected ScanStatus of InQueue, got %s", model.Images[image.Sha].ScanStatus)
+		t.Fail()
+	}
+
+	if model.ImagePriority[image.Sha] != -1 {
+		t.Logf("expected priority of -1, found %d", model.ImagePriority[image.Sha])
 		t.Fail()
 	}
 

@@ -90,6 +90,7 @@ func CoreModelToAPIModel(model *m.Model) *api.Model {
 			ScanResults:            imageInfo.ScanResults,
 			ScanStatus:             imageInfo.ScanStatus.String(),
 			TimeOfLastStatusChange: imageInfo.TimeOfLastStatusChange.String(),
+			Priority: model.ImagePriority[imageSha],
 		}
 	}
 	// hub check queue

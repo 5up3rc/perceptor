@@ -90,6 +90,7 @@ type ModelImageInfo struct {
 	ScanResults            *hub.ScanResults
 	ImageSha               string
 	RepoTags               []*ModelRepoTag
+	Priority               int
 }
 
 // ModelRepoTag ...
